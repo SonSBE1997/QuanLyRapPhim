@@ -1,0 +1,288 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{DEB0AF4E-59C5-4CD9-9D6C-E972E7C85006}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <RootNamespace>QuanLyRapPhim</RootNamespace>
+    <AssemblyName>QuanLyRapPhim</AssemblyName>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Windows.Forms.DataVisualization" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="BLL\BuoiChieuBLL.cs" />
+    <Compile Include="BLL\Common.cs" />
+    <Compile Include="BLL\DataProvider.cs" />
+    <Compile Include="BLL\GioChieuBLL.cs" />
+    <Compile Include="BLL\HangSanXuatBLL.cs" />
+    <Compile Include="BLL\NuocSanXuatBLL.cs" />
+    <Compile Include="BLL\PhongChieuBLL.cs" />
+    <Compile Include="BLL\RapBLL.cs" />
+    <Compile Include="BLL\TheLoaiBLL.cs" />
+    <Compile Include="Chart1.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Chart1.Designer.cs">
+      <DependentUpon>Chart1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Chart2.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Chart2.Designer.cs">
+      <DependentUpon>Chart2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Chart3.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Chart3.Designer.cs">
+      <DependentUpon>Chart3.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DAO\BuoiChieuDAO.cs" />
+    <Compile Include="DAO\GioChieuDAO.cs" />
+    <Compile Include="DAO\HangSXDAO.cs" />
+    <Compile Include="DAO\NuocSanXuatDAO.cs" />
+    <Compile Include="DAO\PhimDAO.cs" />
+    <Compile Include="DAO\PhongChieuDAO.cs" />
+    <Compile Include="DAO\RapDAO.cs" />
+    <Compile Include="DAO\TheLoaiDAO.cs" />
+    <Compile Include="DAO\VeDAO.cs" />
+    <Compile Include="Form\Main.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form\Main.Designer.cs">
+      <DependentUpon>Main.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Report1.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Report1.Designer.cs">
+      <DependentUpon>Report1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Report2.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Report2.Designer.cs">
+      <DependentUpon>Report2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Report3.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Report3.Designer.cs">
+      <DependentUpon>Report3.cs</DependentUpon>
+    </Compile>
+    <EmbeddedResource Include="Chart1.resx">
+      <DependentUpon>Chart1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Chart2.resx">
+      <DependentUpon>Chart2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Chart3.resx">
+      <DependentUpon>Chart3.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form\Main.resx">
+      <DependentUpon>Main.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <SubType>Designer</SubType>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Images\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\trangchu.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\cin32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\cin24.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\trangchu1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\trangchu2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Session Manager.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\baocao.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\exit.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\file-manage1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\file-manager.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\cin241.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\film64.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\room64.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\ticket64.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\tickket641.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\tick128.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\film641.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\film6411.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\time64.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\time641.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\cinema64.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\info64.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\report1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\report2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\report3.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\report4.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\report5.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\report6.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\report61.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\question.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\iconreport.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\iconreport2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\iconreport3.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\firstRecord.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\nextrecord_1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\preRecord.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\lastrecord_1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\add-16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\delete-16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\undo-16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\save-16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\date64.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\film-roll-64.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\makerflim.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\category64.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\icon-ios7-film-outline-64.png" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>
