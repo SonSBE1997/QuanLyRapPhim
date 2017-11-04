@@ -18,12 +18,18 @@ namespace QuanLyRapPhim
         RapBLL rap = new RapBLL();
         PhongChieuBLL phongchieu = new PhongChieuBLL();
         GioChieuBLL giochieu = new GioChieuBLL();
+        NuocSanXuatBLL nuocsanxuat = new NuocSanXuatBLL();
+        HangSanXuatBLL hangsanxuat = new HangSanXuatBLL();
+        TheLoaiBLL theloai = new TheLoaiBLL();
         #endregion
 
         #region BindingSource
         BindingSource sourceRap = new BindingSource();
         BindingSource sourcePhongChieu = new BindingSource();
         BindingSource sourceGioChieu = new BindingSource();
+        BindingSource sourceNuocSanXuat = new BindingSource();
+        BindingSource sourceHangSanXuat = new BindingSource();
+        BindingSource sourceTheLoai = new BindingSource();
         #endregion
         public Form1()
         {
@@ -54,6 +60,9 @@ namespace QuanLyRapPhim
             QuanLyRap();
             QuanLyPhongChieu();
             QuanLyGioChieu();
+            QuanLyNuocSanXuat();
+            QuanLyHangSanXuat();
+            QuanLyTheLoai();
         }
 
         void EventChangeTabControl1()
@@ -290,7 +299,7 @@ namespace QuanLyRapPhim
         void XoaRap()
         {
             string marap = txbRMaRap.Text;
-            if (MessageBox.Show("Bạn có chắc xóa rạp có mã " + marap + "không?", "Xóa rạp", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+            if (MessageBox.Show("Bạn có chắc xóa rạp có mã " + marap + " không?", "Xóa rạp", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
             {
                 if (rap.XoaRap(marap))
                 {
@@ -358,7 +367,7 @@ namespace QuanLyRapPhim
             {
                 phongchieu.ThemPhong(ttphongchieu);
             }
-            MessageBox.Show("Lưu phòng chiéu thành công!");
+            MessageBox.Show("Lưu phòng chiếu thành công!");
             LoadDtgvPhongChieu();
             LoadDtgvRap();
         }
@@ -370,7 +379,7 @@ namespace QuanLyRapPhim
                 MaPhong = txbPCMaPhong.Text,
                 TenRap = cbPCTenRap.SelectedItem.ToString()
             };
-            if (MessageBox.Show("Bạn có chắc xóa phòng có mã " + ttPhongChieu.MaPhong + "không?", "Xóa phòng", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+            if (MessageBox.Show("Bạn có chắc xóa phòng có mã " + ttPhongChieu.MaPhong + " không?", "Xóa phòng", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
             {
                 if (phongchieu.XoaPhong(ttPhongChieu))
                 {
@@ -436,7 +445,7 @@ namespace QuanLyRapPhim
         void XoaGioChieu()
         {
             string magiochieu = txbGCMaGioChieu.Text;
-            if (MessageBox.Show("Bạn có chắc xóa giờ chiếu có mã " + magiochieu + "không?", "Xóa giờ chiếu", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+            if (MessageBox.Show("Bạn có chắc xóa giờ chiếu có mã " + magiochieu + " không?", "Xóa giờ chiếu", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
             {
                 if (giochieu.XoaGioChieu(magiochieu))
                 {
@@ -449,7 +458,192 @@ namespace QuanLyRapPhim
         #endregion
 
         #region QuanLyNuocSanXuat
+        void QuanLyNuocSanXuat()
+        {
+            dtgvNuocSanXuat.DataSource = sourceNuocSanXuat;
+            LoadDtgvNuocSanXuat();
+            ChonNuocSanXuat();
+            dtgvNuocSanXuat.CellClick += (s, e) => { ChonNuocSanXuat(); };
+            btnTaoNuocSanXuat.Click += (s, e) => { TaoNuocSanXuat(); };
+            btnLuuNuocSanXuat.Click += (s, e) => { LuuNuocSanXuat(); };
+            btnHuyNuocSanXuat.Click += (s, e) => { ChonNuocSanXuat(); };
+            btnXoaNuocSanXuat.Click += (s, e) => { XoaNuocSanXuat(); };
+        }
 
+        void LoadDtgvNuocSanXuat()
+        {
+            sourceNuocSanXuat.DataSource = nuocsanxuat.LayDanhSachNuocSanXuat();
+        }
+
+        void ChonNuocSanXuat()
+        {
+            txbNSXMaNuocSX.Text = dtgvNuocSanXuat.SelectedRows[0].Cells["Mã nước sản xuất"].Value.ToString();
+            txbNSXTenNuocSX.Text = dtgvNuocSanXuat.SelectedRows[0].Cells["Tên nước sản xuất"].Value.ToString();
+        }
+
+        void TaoNuocSanXuat()
+        {
+            txbNSXMaNuocSX.Text = "";
+            txbNSXMaNuocSX.Focus();
+            txbNSXTenNuocSX.Text = "";
+        }
+
+        void LuuNuocSanXuat()
+        {
+            if (txbNSXMaNuocSX.Text == "") return;
+            NuocSanXuatDAO ttnuocsx = new NuocSanXuatDAO()
+            {
+                MaNuoc = txbNSXMaNuocSX.Text,
+                TenNuoc = txbNSXTenNuocSX.Text
+            };
+            if (nuocsanxuat.KiemTraNuocSanXuat(ttnuocsx.MaNuoc))
+            {
+                nuocsanxuat.SuaNuocSanXuat(ttnuocsx);
+            }
+            else nuocsanxuat.ThemNuocSanXuat(ttnuocsx);
+            MessageBox.Show("Lưu nước sản xuất thành công!");
+            LoadDtgvNuocSanXuat();
+        }
+
+        void XoaNuocSanXuat()
+        {
+            string manuocsx = txbNSXMaNuocSX.Text;
+            if (MessageBox.Show("Bạn có chắc xóa nước sản xuất có mã " + manuocsx + " không?", "Xóa nước sản xuất", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+            {
+                if (nuocsanxuat.XoaNuocSanXuat(manuocsx))
+                {
+                    MessageBox.Show("Xóa nước sản xuất thành công!");
+                    LoadDtgvNuocSanXuat();
+                }
+                else MessageBox.Show("Xóa nước sản xuất không thành công!");
+            }
+        }
+        #endregion
+
+        #region QuanLyHangSanXuat
+        void QuanLyHangSanXuat()
+        {
+            dtgvHangSX.DataSource = sourceHangSanXuat;
+            LoadDtgvHangSanXuat();
+            ChonHangSanXuat();
+            dtgvHangSX.CellClick += (s, e) => { ChonHangSanXuat(); };
+            btnTaoHang.Click += (s, e) => { TaoHangSX(); };
+            btnLuuHang.Click += (s, e) => { LuuHangSX(); };
+            btnHuyHang.Click += (s, e) => { ChonHangSanXuat(); };
+            btnXoaHang.Click += (s, e) => { XoaHangSX(); };
+        }
+
+        void LoadDtgvHangSanXuat()
+        {
+            sourceHangSanXuat.DataSource = hangsanxuat.LayDanhSachHangSanXuat();
+        }
+
+        void ChonHangSanXuat()
+        {
+            txbHMaHang.Text = dtgvHangSX.SelectedRows[0].Cells["Mã hãng sản xuất"].Value.ToString();
+            txbHTenHang.Text = dtgvHangSX.SelectedRows[0].Cells["Tên hãng sản xuất"].Value.ToString();
+        }
+
+        void TaoHangSX()
+        {
+            txbHMaHang.Text = "";
+            txbHMaHang.Focus();
+            txbHTenHang.Text = "";
+        }
+
+        void LuuHangSX()
+        {
+            if (txbHMaHang.Text == "") return;
+            HangSXDAO tthangsx = new HangSXDAO()
+            {
+                MaHang = txbHMaHang.Text,
+                TenHang = txbHTenHang.Text
+            };
+            if (hangsanxuat.KiemTraHangSanXuat(tthangsx.MaHang))
+            {
+                hangsanxuat.SuaHangSanXuat(tthangsx);
+            }
+            else hangsanxuat.ThemHangSanXuat(tthangsx);
+            MessageBox.Show("Lưu hãng sản xuất thành công!");
+            LoadDtgvHangSanXuat();
+        }
+
+        void XoaHangSX()
+        {
+            string mahangsx = txbHMaHang.Text;
+            if (MessageBox.Show("Bạn có chắc xóa hãng sản xuất có mã " + mahangsx + " không?", "Xóa hãng sản xuất", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+            {
+                if (hangsanxuat.XoaHangSanXuat(mahangsx))
+                {
+                    MessageBox.Show("Xóa hãng sản xuất thành công!");
+                    LoadDtgvHangSanXuat();
+                }
+                else MessageBox.Show("Xóa hãng sản xuất không thành công!");
+            }
+        }
+        #endregion
+
+        #region QuanLyTheLoai
+        void QuanLyTheLoai()
+        {
+            dtgvTheLoai.DataSource = sourceTheLoai;
+            LoadDtgvTheLoai();
+            ChonTheLoai();
+            dtgvTheLoai.CellClick += (s, e) => { ChonTheLoai(); };
+            btnTaoTheLoai.Click += (s, e) => { TaoTheLoai(); };
+            btnHuyTheLoai.Click += (s, e) => { ChonTheLoai(); };
+            btnLuuTheLoai.Click += (s, e) => { LuuTheLoai(); };
+            btnXoaTheLoai.Click += (s, e) => { XoaTheLoai(); };
+        }
+
+        void LoadDtgvTheLoai()
+        {
+            sourceTheLoai.DataSource = theloai.LayDanhSachTheLoai();
+        }
+
+        void ChonTheLoai()
+        {
+            txbTLMaTheLoai.Text = dtgvTheLoai.SelectedRows[0].Cells["Mã thể loại"].Value.ToString();
+            txbTLTenTheLoai.Text = dtgvTheLoai.SelectedRows[0].Cells["Tên thể loại"].Value.ToString();
+        }
+
+        void TaoTheLoai()
+        {
+            txbTLMaTheLoai.Text = "";
+            txbTLMaTheLoai.Focus();
+            txbTLTenTheLoai.Text = "";
+        }
+
+        void LuuTheLoai()
+        {
+            if (txbTLMaTheLoai.Text == "") return;
+            TheLoaiDAO tttheloai = new TheLoaiDAO()
+            {
+                MaTheLoai = txbTLMaTheLoai.Text,
+                TenTheLoai = txbTLTenTheLoai.Text
+            };
+            if (theloai.KiemTraTheLoai(tttheloai.MaTheLoai))
+            {
+                theloai.SuaTheLoai(tttheloai);
+            }
+            else theloai.ThemTheLoai(tttheloai);
+            MessageBox.Show("Lưu thể loại thành công!");
+            LoadDtgvTheLoai();
+        }
+
+        void XoaTheLoai()
+        {
+            string matheloai = txbTLMaTheLoai.Text;
+            if (MessageBox.Show("Bạn có chắc xóa hãng sản xuất có mã " + matheloai + " không?", "Xóa hãng sản xuất", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+            {
+                if (theloai.XoaTheLoai(matheloai))
+                {
+                    MessageBox.Show("Xóa thể loại thành công!");
+                    LoadDtgvTheLoai();
+                }
+                else MessageBox.Show("Xóa thể loại không thành công!");
+            }
+        }
         #endregion
     }
 }
