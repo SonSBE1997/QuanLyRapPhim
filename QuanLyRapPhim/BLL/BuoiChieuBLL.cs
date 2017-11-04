@@ -8,5 +8,6 @@ namespace QuanLyRapPhim.BLL
 {
     public class BuoiChieuBLL
     {
+
     }
 }

@@ -23,7 +23,7 @@ namespace QuanLyRapPhim.BLL
 
         public bool XoaNuocSanXuat(string manuoc)
         {
-            return DataProvider.Instance.ExcuteNonQuery("DELETE dbo.NuocSanXuat WHERE manuocsx = '" + manuoc + "'") > 0;
+            return DataProvider.Instance.ExcuteNonQuery("EXEC dbo.USP_XoaNuocSX @manuocsx", new object[] { manuoc }) > 0;
         }
 
 

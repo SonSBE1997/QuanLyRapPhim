@@ -22,7 +22,7 @@ namespace QuanLyRapPhim.BLL
 
         public bool XoaGioChieu(string magiochieu)
         {
-            return DataProvider.Instance.ExcuteNonQuery("DELETE dbo.GioChieu WHERE magiochieu = '" + magiochieu + "'") > 0;
+            return DataProvider.Instance.ExcuteNonQuery("EXEC dbo.USP_XoaGioChieu @magiochieu", new object[] { magiochieu }) > 0;
         }
 
 

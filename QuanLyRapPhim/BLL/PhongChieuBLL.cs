@@ -25,7 +25,7 @@ namespace QuanLyRapPhim.BLL
         public bool XoaPhong(PhongChieuDAO phong)
         {
             string marap = rap.LayRapTheoTenRap(phong.TenRap).MaRap;
-            int r1 = DataProvider.Instance.ExcuteNonQuery("DELETE dbo.PhongChieu WHERE maphong = '" + phong.MaPhong + "'");
+            int r1 = DataProvider.Instance.ExcuteNonQuery("EXEC dbo.USP_XoaPhongChieu @maphongchieu", new object[] { phong.MaPhong });
             int r2 = DataProvider.Instance.ExcuteNonQuery(string.Format("UPDATE dbo.Rap SET sophong = sophong - 1, tongsoghe = tongsoghe - {0} WHERE marap = '{1}'", phong.SoGhe, marap));
             return r1 > 0 && r2 > 0;
         }

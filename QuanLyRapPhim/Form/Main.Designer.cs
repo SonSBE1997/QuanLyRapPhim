@@ -828,7 +828,9 @@
             this.dtgvRap.BackgroundColor = System.Drawing.SystemColors.ButtonHighlight;
             this.dtgvRap.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dtgvRap.Location = new System.Drawing.Point(6, 45);
+            this.dtgvRap.MultiSelect = false;
             this.dtgvRap.Name = "dtgvRap";
+            this.dtgvRap.ReadOnly = true;
             this.dtgvRap.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dtgvRap.Size = new System.Drawing.Size(689, 279);
             this.dtgvRap.TabIndex = 13;
@@ -1125,7 +1127,9 @@
             this.dtgvPhongChieu.BackgroundColor = System.Drawing.SystemColors.ButtonHighlight;
             this.dtgvPhongChieu.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dtgvPhongChieu.Location = new System.Drawing.Point(6, 45);
+            this.dtgvPhongChieu.MultiSelect = false;
             this.dtgvPhongChieu.Name = "dtgvPhongChieu";
+            this.dtgvPhongChieu.ReadOnly = true;
             this.dtgvPhongChieu.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dtgvPhongChieu.Size = new System.Drawing.Size(689, 279);
             this.dtgvPhongChieu.TabIndex = 13;
@@ -1385,7 +1389,9 @@
             this.dtgvGioChieu.BackgroundColor = System.Drawing.SystemColors.ButtonHighlight;
             this.dtgvGioChieu.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dtgvGioChieu.Location = new System.Drawing.Point(6, 45);
+            this.dtgvGioChieu.MultiSelect = false;
             this.dtgvGioChieu.Name = "dtgvGioChieu";
+            this.dtgvGioChieu.ReadOnly = true;
             this.dtgvGioChieu.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dtgvGioChieu.Size = new System.Drawing.Size(689, 318);
             this.dtgvGioChieu.TabIndex = 13;
@@ -1605,7 +1611,9 @@
             this.dtgvPhim.BackgroundColor = System.Drawing.SystemColors.ButtonHighlight;
             this.dtgvPhim.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dtgvPhim.Location = new System.Drawing.Point(6, 36);
+            this.dtgvPhim.MultiSelect = false;
             this.dtgvPhim.Name = "dtgvPhim";
+            this.dtgvPhim.ReadOnly = true;
             this.dtgvPhim.Size = new System.Drawing.Size(699, 199);
             this.dtgvPhim.TabIndex = 13;
             // 
@@ -2042,7 +2050,9 @@
             this.dtgvNuocSanXuat.BackgroundColor = System.Drawing.SystemColors.ButtonHighlight;
             this.dtgvNuocSanXuat.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dtgvNuocSanXuat.Location = new System.Drawing.Point(6, 45);
+            this.dtgvNuocSanXuat.MultiSelect = false;
             this.dtgvNuocSanXuat.Name = "dtgvNuocSanXuat";
+            this.dtgvNuocSanXuat.ReadOnly = true;
             this.dtgvNuocSanXuat.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dtgvNuocSanXuat.Size = new System.Drawing.Size(689, 318);
             this.dtgvNuocSanXuat.TabIndex = 13;
@@ -2263,7 +2273,9 @@
             this.dtgvHangSX.BackgroundColor = System.Drawing.SystemColors.ButtonHighlight;
             this.dtgvHangSX.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dtgvHangSX.Location = new System.Drawing.Point(6, 45);
+            this.dtgvHangSX.MultiSelect = false;
             this.dtgvHangSX.Name = "dtgvHangSX";
+            this.dtgvHangSX.ReadOnly = true;
             this.dtgvHangSX.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dtgvHangSX.Size = new System.Drawing.Size(689, 318);
             this.dtgvHangSX.TabIndex = 13;
@@ -2484,7 +2496,9 @@
             this.dtgvTheLoai.BackgroundColor = System.Drawing.SystemColors.ButtonHighlight;
             this.dtgvTheLoai.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dtgvTheLoai.Location = new System.Drawing.Point(6, 45);
+            this.dtgvTheLoai.MultiSelect = false;
             this.dtgvTheLoai.Name = "dtgvTheLoai";
+            this.dtgvTheLoai.ReadOnly = true;
             this.dtgvTheLoai.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dtgvTheLoai.Size = new System.Drawing.Size(689, 318);
             this.dtgvTheLoai.TabIndex = 13;
@@ -2705,7 +2719,9 @@
             this.dtgvLichChieu.BackgroundColor = System.Drawing.SystemColors.ButtonHighlight;
             this.dtgvLichChieu.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dtgvLichChieu.Location = new System.Drawing.Point(6, 45);
+            this.dtgvLichChieu.MultiSelect = false;
             this.dtgvLichChieu.Name = "dtgvLichChieu";
+            this.dtgvLichChieu.ReadOnly = true;
             this.dtgvLichChieu.Size = new System.Drawing.Size(689, 245);
             this.dtgvLichChieu.TabIndex = 13;
             // 
@@ -3026,7 +3042,9 @@
             this.dtgvVe.BackgroundColor = System.Drawing.SystemColors.ButtonHighlight;
             this.dtgvVe.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dtgvVe.Location = new System.Drawing.Point(6, 45);
+            this.dtgvVe.MultiSelect = false;
             this.dtgvVe.Name = "dtgvVe";
+            this.dtgvVe.ReadOnly = true;
             this.dtgvVe.Size = new System.Drawing.Size(689, 254);
             this.dtgvVe.TabIndex = 13;
             // 
@@ -3280,10 +3298,10 @@
             this.tabBaoCaoThongKe.Controls.Add(this.button13);
             this.tabBaoCaoThongKe.Controls.Add(this.button12);
             this.tabBaoCaoThongKe.Controls.Add(this.button11);
-            this.tabBaoCaoThongKe.Location = new System.Drawing.Point(4, 5);
+            this.tabBaoCaoThongKe.Location = new System.Drawing.Point(4, 24);
             this.tabBaoCaoThongKe.Name = "tabBaoCaoThongKe";
             this.tabBaoCaoThongKe.Padding = new System.Windows.Forms.Padding(3);
-            this.tabBaoCaoThongKe.Size = new System.Drawing.Size(766, 627);
+            this.tabBaoCaoThongKe.Size = new System.Drawing.Size(766, 608);
             this.tabBaoCaoThongKe.TabIndex = 2;
             this.tabBaoCaoThongKe.Text = "Báo cáo thống kê";
             // 
@@ -3382,10 +3400,10 @@
             // tabPage4
             // 
             this.tabPage4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(241)))), ((int)(((byte)(241)))), ((int)(((byte)(241)))));
-            this.tabPage4.Location = new System.Drawing.Point(4, 5);
+            this.tabPage4.Location = new System.Drawing.Point(4, 24);
             this.tabPage4.Name = "tabPage4";
             this.tabPage4.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage4.Size = new System.Drawing.Size(766, 627);
+            this.tabPage4.Size = new System.Drawing.Size(766, 608);
             this.tabPage4.TabIndex = 3;
             this.tabPage4.Text = "Giới thiệu";
             // 

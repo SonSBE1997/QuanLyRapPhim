@@ -48,7 +48,7 @@ namespace QuanLyRapPhim.BLL
 
         public bool XoaRap(string marap)
         {
-            return DataProvider.Instance.ExcuteNonQuery("DELETE dbo.Rap WHERE marap = '" + marap + "'") > 0;
+            return DataProvider.Instance.ExcuteNonQuery("EXEC dbo.USP_XoaRapChieu @marapchieu", new object[] { marap }) > 0;
         }
 
         public RapDAO LayRapTheoMaRap(string id)

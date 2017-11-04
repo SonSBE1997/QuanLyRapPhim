@@ -22,7 +22,7 @@ namespace QuanLyRapPhim.BLL
 
         public bool XoaHangSanXuat(string mahang)
         {
-            return DataProvider.Instance.ExcuteNonQuery("DELETE dbo.HangSX WHERE mahangsx = '" + mahang + "'") > 0;
+            return DataProvider.Instance.ExcuteNonQuery("EXEC dbo.USP_XoaHangSX  @mahangsx", new object[] { mahang }) > 0;
         }
 
 

@@ -15,6 +15,7 @@ namespace QuanLyRapPhim
     public partial class Form1 : Form
     {
         #region BLL
+        Common common = new Common();
         RapBLL rap = new RapBLL();
         PhongChieuBLL phongchieu = new PhongChieuBLL();
         GioChieuBLL giochieu = new GioChieuBLL();
@@ -31,6 +32,7 @@ namespace QuanLyRapPhim
         BindingSource sourceHangSanXuat = new BindingSource();
         BindingSource sourceTheLoai = new BindingSource();
         #endregion
+
         public Form1()
         {
             InitializeComponent();
@@ -51,7 +53,7 @@ namespace QuanLyRapPhim
         }
         #endregion
 
-        #region Form_Load
+        #region Common
         private void Form1_Load(object sender, EventArgs e)
         {
             EventChangeTabControl1();
@@ -133,6 +135,14 @@ namespace QuanLyRapPhim
             };
         }
 
+        void KeyPressEvent(KeyPressEventArgs e, string mess)
+        {
+            if ((e.KeyChar < '0' || e.KeyChar > '9') && e.KeyChar != 8)
+            {
+                MessageBox.Show(mess);
+                e.Handled = true;
+            }
+        }
         #endregion
 
         #region Left_Button
@@ -237,6 +247,19 @@ namespace QuanLyRapPhim
             btnLuuRap.Click += (s, e) => { LuuRap(); };
             btnHuyRap.Click += (s, e) => { ChonRap(); };
             btnXoaRap.Click += (s, e) => { XoaRap(); };
+
+            btnRFirst.Click += (s, e) => { common.First(dtgvRap); };
+            btnRPrevious.Click += (s, e) => { common.Previous(dtgvRap); };
+            btnRNext.Click += (s, e) => { common.Next(dtgvRap); };
+            btnRLast.Click += (s, e) => { common.Last(dtgvRap); };
+
+            txbTimKiemRap.TextChanged += (s, e) => { TimKiemRap(); };
+        }
+
+        void TimKiemRap()
+        {
+            DataTable table = rap.LayDanhSachRapDataTable();
+            sourceRap.DataSource = common.TimKiem(table, txbTimKiemRap.Text.Trim());
         }
 
         void LoadDtgvRap()
@@ -322,6 +345,12 @@ namespace QuanLyRapPhim
             btnHuyPhongChieu.Click += (s, e) => { ChonPhongChieu(); };
             btnLuuPhongChieu.Click += (s, e) => { LuuPhongChieu(); };
             btnXoaPhongChieu.Click += (s, e) => { XoaPhongChieu(); };
+            txbPCSoGhe.KeyPress += (s, e) => { KeyPressEvent(e, "Bạn phải nhập số ghế là số"); };
+
+            btnPCFirst.Click += (s, e) => { common.First(dtgvPhongChieu); };
+            btnPCPrevious.Click += (s, e) => { common.Previous(dtgvPhongChieu); };
+            btnPCNext.Click += (s, e) => { common.Next(dtgvPhongChieu); };
+            btnPCLast.Click += (s, e) => { common.Last(dtgvPhongChieu); };
         }
 
         void LoadDtgvPhongChieu()
@@ -405,6 +434,12 @@ namespace QuanLyRapPhim
             btnHuyGioChieu.Click += (s, e) => { ChonGioChieu(); };
             btnLuuGioChieu.Click += (s, e) => { LuuGioChieu(); };
             btnXoaGioChieu.Click += (s, e) => { XoaGioChieu(); };
+            txbGCDonGia.KeyPress += (s, e) => { KeyPressEvent(e, "Bạn phải nhập đơn giá là một số"); };
+
+            btnGCFirst.Click += (s, e) => { common.First(dtgvGioChieu); };
+            btnGCPrevious.Click += (s, e) => { common.Previous(dtgvGioChieu); };
+            btnGCNext.Click += (s, e) => { common.Next(dtgvGioChieu); };
+            btnGCLast.Click += (s, e) => { common.Last(dtgvGioChieu); };
         }
 
         void LoadDtgvGioChieu()
@@ -468,6 +503,11 @@ namespace QuanLyRapPhim
             btnLuuNuocSanXuat.Click += (s, e) => { LuuNuocSanXuat(); };
             btnHuyNuocSanXuat.Click += (s, e) => { ChonNuocSanXuat(); };
             btnXoaNuocSanXuat.Click += (s, e) => { XoaNuocSanXuat(); };
+
+            btnNFirst.Click += (s, e) => { common.First(dtgvNuocSanXuat); };
+            btnNPrevious.Click += (s, e) => { common.Previous(dtgvNuocSanXuat); };
+            btnNNext.Click += (s, e) => { common.Next(dtgvNuocSanXuat); };
+            btnNLast.Click += (s, e) => { common.Last(dtgvNuocSanXuat); };
         }
 
         void LoadDtgvNuocSanXuat()
@@ -531,6 +571,11 @@ namespace QuanLyRapPhim
             btnLuuHang.Click += (s, e) => { LuuHangSX(); };
             btnHuyHang.Click += (s, e) => { ChonHangSanXuat(); };
             btnXoaHang.Click += (s, e) => { XoaHangSX(); };
+
+            btnHFirst.Click += (s, e) => { common.First(dtgvHangSX); };
+            btnHPrevious.Click += (s, e) => { common.Previous(dtgvHangSX); };
+            btnHNext.Click += (s, e) => { common.Next(dtgvHangSX); };
+            btnHLast.Click += (s, e) => { common.Last(dtgvHangSX); };
         }
 
         void LoadDtgvHangSanXuat()
@@ -594,6 +639,11 @@ namespace QuanLyRapPhim
             btnHuyTheLoai.Click += (s, e) => { ChonTheLoai(); };
             btnLuuTheLoai.Click += (s, e) => { LuuTheLoai(); };
             btnXoaTheLoai.Click += (s, e) => { XoaTheLoai(); };
+
+            btnTLFirst.Click += (s, e) => { common.First(dtgvTheLoai); };
+            btnTLPrevious.Click += (s, e) => { common.Previous(dtgvTheLoai); };
+            btnTLNext.Click += (s, e) => { common.Next(dtgvTheLoai); };
+            btnTLLast.Click += (s, e) => { common.Last(dtgvTheLoai); };
         }
 
         void LoadDtgvTheLoai()

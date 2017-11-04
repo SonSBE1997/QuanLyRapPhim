@@ -23,7 +23,7 @@ namespace QuanLyRapPhim.BLL
 
         public bool XoaTheLoai(string matheloai)
         {
-            return DataProvider.Instance.ExcuteNonQuery("DELETE dbo.TheLoai WHERE matheloai = '" + matheloai + "'") > 0;
+            return DataProvider.Instance.ExcuteNonQuery("EXEC dbo.USP_XoaTheLoai @matheloai", new object[] { matheloai }) > 0;
         }
 
 
