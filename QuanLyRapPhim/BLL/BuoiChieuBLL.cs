@@ -51,5 +51,17 @@ namespace QuanLyRapPhim.BLL
             DataProvider.Instance.ExcuteNonQuery("DELETE dbo.Ve WHERE mashow = '" + mashow + "'");
             return DataProvider.Instance.ExcuteNonQuery("DELETE dbo.BuoiChieu WHERE mashow = '" + mashow + "'") > 0;
         }
+
+        public string LayMaShowTuThongTinVe(VeDAO ve)
+        {
+            string ngaychieu = ve.NgayChieu.ToString("MM-dd-yyyy");
+            string query = string.Format("SELECT mashow FROM  dbo.BuoiChieu bc JOIN dbo.Rap r ON r.marap = bc.marap JOIN dbo.PhongChieu pc ON pc.maphong = bc.maphong JOIN dbo.GioChieu gc ON gc.magiochieu = bc.magiochieu JOIN phim p ON p.maphim = bc.maphim WHERE r.tenrap = N'{0}' AND p.tenphim = N'{1}' AND bc.magiochieu = '{2}' AND bc.ngaychieu = '{3}' AND  pc.tenphong = N'{4}'", ve.TenRap, ve.TenPhim, ve.GioChieu, ngaychieu, ve.PhongChieu);
+            DataTable table = DataProvider.Instance.ExcuteQuery(query);
+            foreach (DataRow item in table.Rows)
+            {
+                return item["mashow"].ToString();
+            }
+            return "";
+        }
     }
 }

@@ -56,6 +56,7 @@
     <Compile Include="BLL\PhongChieuBLL.cs" />
     <Compile Include="BLL\RapBLL.cs" />
     <Compile Include="BLL\TheLoaiBLL.cs" />
+    <Compile Include="BLL\VeBLL.cs" />
     <Compile Include="Chart1.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -284,6 +285,12 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\icon-ios7-film-outline-64.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\search.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\sell.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

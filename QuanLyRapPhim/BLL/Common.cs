@@ -10,6 +10,27 @@ namespace QuanLyRapPhim.BLL
 {
     public class Common
     {
+        public void DuyetComboBox(ComboBox c, string key)
+        {
+            foreach (string item in c.Items)
+            {
+                if (key == item)
+                {
+                    c.SelectedItem = item;
+                    return;
+                }
+            }
+        }
+
+        public void KeyPressEvent(KeyPressEventArgs e, string mess)
+        {
+            if ((e.KeyChar < '0' || e.KeyChar > '9') && e.KeyChar != 8)
+            {
+                MessageBox.Show(mess);
+                e.Handled = true;
+            }
+        }
+
         public void Previous(DataGridView view)
         {
             int index = view.CurrentRow.Index;
@@ -41,20 +62,18 @@ namespace QuanLyRapPhim.BLL
 
         public DataTable TimKiem(DataTable table, string key)
         {
-            int row = table.Rows.Count;
-            if (row == 0) return null;
-            int col = table.Columns.Count;
-            for (int i = 0; i < row; i++)
+            for (int i = 0; i < table.Rows.Count; i++)
             {
+
                 int d = 0;
-                for (int j = 0; j < col; j++)
+                for (int j = 0; j < table.Columns.Count; j++)
                 {
                     if (table.Rows[i][j].ToString().Contains(key))
                     {
                         d++;
                     }
                 }
-                if (d == 0) table.Rows.RemoveAt(i);
+                if (d == 0) { table.Rows.RemoveAt(i); i--; }
             }
             return table;
         }

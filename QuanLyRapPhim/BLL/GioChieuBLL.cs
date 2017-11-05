@@ -47,6 +47,17 @@ namespace QuanLyRapPhim.BLL
             return ls;
         }
 
+        public List<GioChieuDAO> LayDanhSachMaGioChieuObject()
+        {
+            List<GioChieuDAO> ls = new List<GioChieuDAO>();
+            DataTable table = DataProvider.Instance.ExcuteQuery("SELECT * FROM dbo.GioChieu");
+            foreach (DataRow item in table.Rows)
+            {
+                ls.Add(new GioChieuDAO(item));
+            }
+            return ls;
+        }
+
         public GioChieuDAO LayGioChieuTheoMa(string magiochieu)
         {
             DataTable table = DataProvider.Instance.ExcuteQuery("SELECT * FROM dbo.GioChieu WHERE magiochieu = '" + magiochieu + "'");
