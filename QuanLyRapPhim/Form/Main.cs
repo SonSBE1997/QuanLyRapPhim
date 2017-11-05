@@ -22,6 +22,9 @@ namespace QuanLyRapPhim
         NuocSanXuatBLL nuocsanxuat = new NuocSanXuatBLL();
         HangSanXuatBLL hangsanxuat = new HangSanXuatBLL();
         TheLoaiBLL theloai = new TheLoaiBLL();
+        PhimBLL phim = new PhimBLL();
+        BuoiChieuBLL buoichieu = new BuoiChieuBLL();
+        VeBLL ve = new VeBLL();
         #endregion
 
         #region BindingSource
@@ -31,6 +34,9 @@ namespace QuanLyRapPhim
         BindingSource sourceNuocSanXuat = new BindingSource();
         BindingSource sourceHangSanXuat = new BindingSource();
         BindingSource sourceTheLoai = new BindingSource();
+        BindingSource sourcePhim = new BindingSource();
+        BindingSource sourceBuoiChieu = new BindingSource();
+        BindingSource sourceVe = new BindingSource();
         #endregion
 
         public Form1()
@@ -58,13 +64,8 @@ namespace QuanLyRapPhim
         {
             EventChangeTabControl1();
             CenterButtonClick();
-            LoadComboBox();
             QuanLyRap();
-            QuanLyPhongChieu();
-            QuanLyGioChieu();
-            QuanLyNuocSanXuat();
-            QuanLyHangSanXuat();
-            QuanLyTheLoai();
+            EventChangeTabControl2();
         }
 
         void EventChangeTabControl1()
@@ -132,6 +133,23 @@ namespace QuanLyRapPhim
             };
             btnMXemBaoCao.Click += (sender, e) => {
                 tabControl1.SelectedIndex = 2;
+            };
+        }
+
+        void EventChangeTabControl2()
+        {
+            tabControl2.SelectedIndexChanged += (sender, e) => {
+                int i = tabControl2.SelectedIndex;
+                if (i < 0) return;
+                if (i == 0) { QuanLyRap(); }
+                if (i == 1) { QuanLyPhongChieu(); LoadCBPhongChieu(); }
+                if (i == 2) { QuanLyGioChieu(); }
+                if (i == 3) { QuanLyPhim(); LoadCbPhim(); }
+                if (i == 4) { QuanLyNuocSanXuat(); }
+                if (i == 5) { QuanLyHangSanXuat(); }
+                if (i == 6) { QuanLyTheLoai(); }
+                if (i == 7) { QuanLyBuoiChieu(); LoadCbLichChieu(); }
+                if (i == 8) { QuanLyBanVe(); }
             };
         }
 
@@ -211,23 +229,36 @@ namespace QuanLyRapPhim
         #endregion
 
         #region Load ComboBox
-        void LoadComboBox()
-        {
-            LoadCbRap();
-        }
-
-        void LoadCbRap()
+        void LoadCBPhongChieu()
         {
             cbPCTenRap.DataSource = rap.LayDanhSachTenRap();
         }
 
-        void DuyetCBRap(string key)
+        void LoadCbPhim()
         {
-            foreach (string item in cbPCTenRap.Items)
+            cbPTheLoai.DataSource = theloai.LayDanhSachTenTheLoai();
+            cbPHangSX.DataSource = hangsanxuat.LayDanhSachTenHangSX();
+            cbPNuocSX.DataSource = nuocsanxuat.LayDanhSachTenNuocSX();
+        }
+
+        void LoadCbLichChieu()
+        {
+            cbLCPhim.DataSource = phim.LayDanhSachTenPhim();
+            cbLCRap.DataSource = rap.LayDanhSachTenRap();
+            cbLCGIoChieu.DataSource = giochieu.LayDanhSachMaGioChieu();
+            cbLCPhongChieu.DataSource = phongchieu.LayDanhSachTenPhongChieuTheoTenRap(cbLCRap.SelectedItem.ToString());
+            cbLCRap.SelectedIndexChanged += (s, e) => {
+                cbLCPhongChieu.DataSource = phongchieu.LayDanhSachTenPhongChieuTheoTenRap(cbLCRap.SelectedItem.ToString());
+            };
+        }
+
+        void DuyetComboBox(ComboBox c, string key)
+        {
+            foreach (string item in c.Items)
             {
                 if (key == item)
                 {
-                    cbPCTenRap.SelectedItem = item;
+                    c.SelectedItem = item;
                     return;
                 }
             }
@@ -240,20 +271,24 @@ namespace QuanLyRapPhim
 
             dtgvRap.DataSource = sourceRap;
             LoadDtgvRap();
-            dtgvRap.CellClick += (s, e) => { ChonRap(); };
-            //RapDataBinding();
             ChonRap();
+            dtgvRap.CellClick += (s, e) => { ChonRap(); };
             btnTaoRap.Click += (s, e) => { TaoRap(); };
             btnLuuRap.Click += (s, e) => { LuuRap(); };
             btnHuyRap.Click += (s, e) => { ChonRap(); };
             btnXoaRap.Click += (s, e) => { XoaRap(); };
 
-            btnRFirst.Click += (s, e) => { common.First(dtgvRap); };
-            btnRPrevious.Click += (s, e) => { common.Previous(dtgvRap); };
-            btnRNext.Click += (s, e) => { common.Next(dtgvRap); };
-            btnRLast.Click += (s, e) => { common.Last(dtgvRap); };
+            btnRFirst.Click += (s, e) => { common.First(dtgvRap); ChonRap(); };
+            btnRPrevious.Click += (s, e) => { common.Previous(dtgvRap); ChonRap(); };
+            btnRNext.Click += (s, e) => { common.Next(dtgvRap); ChonRap(); };
+            btnRLast.Click += (s, e) => { common.Last(dtgvRap); ChonRap(); };
 
             txbTimKiemRap.TextChanged += (s, e) => { TimKiemRap(); };
+        }
+
+        void LoadDtgvRap()
+        {
+            sourceRap.DataSource = rap.LayDanhSachRapDataTable();
         }
 
         void TimKiemRap()
@@ -262,20 +297,14 @@ namespace QuanLyRapPhim
             sourceRap.DataSource = common.TimKiem(table, txbTimKiemRap.Text.Trim());
         }
 
-        void LoadDtgvRap()
+        void ChonRap()
         {
-            sourceRap.DataSource = rap.LayDanhSachRapDataTable();
-        }
-
-        void RapDataBinding()
-        {
-            txbRMaRap.DataBindings.Add(new Binding("text", dtgvRap.DataSource, "Mã rạp", true, DataSourceUpdateMode.Never));
-            txbRTenRap.DataBindings.Add(new Binding("text", dtgvRap.DataSource, "Tên rạp", true, DataSourceUpdateMode.Never));
-            txbRDiaChi.DataBindings.Add(new Binding("text", dtgvRap.DataSource, "Địa chỉ", true, DataSourceUpdateMode.Never));
-
-            txbRDienThoai.DataBindings.Add(new Binding("text", dtgvRap.DataSource, "Số điện thoại", true, DataSourceUpdateMode.Never));
-            txbRSoPhong.DataBindings.Add(new Binding("text", dtgvRap.DataSource, "Số phòng", true, DataSourceUpdateMode.Never));
-            txbRTongSoGhe.DataBindings.Add(new Binding("text", dtgvRap.DataSource, "Tổng số ghế", true, DataSourceUpdateMode.Never));
+            txbRMaRap.Text = dtgvRap.SelectedRows[0].Cells["Mã rạp"].Value.ToString();
+            txbRTenRap.Text = dtgvRap.SelectedRows[0].Cells["Tên rạp"].Value.ToString();
+            txbRDiaChi.Text = dtgvRap.SelectedRows[0].Cells["Địa chỉ"].Value.ToString();
+            txbRDienThoai.Text = dtgvRap.SelectedRows[0].Cells["Số điện thoại"].Value.ToString();
+            txbRSoPhong.Text = dtgvRap.SelectedRows[0].Cells["Số phòng"].Value.ToString();
+            txbRTongSoGhe.Text = dtgvRap.SelectedRows[0].Cells["Tổng số ghế"].Value.ToString();
         }
 
         void TaoRap()
@@ -309,19 +338,9 @@ namespace QuanLyRapPhim
             LoadDtgvRap();
         }
 
-        void ChonRap()
-        {
-            txbRMaRap.Text = dtgvRap.SelectedRows[0].Cells["Mã rạp"].Value.ToString();
-            txbRTenRap.Text = dtgvRap.SelectedRows[0].Cells["Tên rạp"].Value.ToString();
-            txbRDiaChi.Text = dtgvRap.SelectedRows[0].Cells["Địa chỉ"].Value.ToString();
-            txbRDienThoai.Text = dtgvRap.SelectedRows[0].Cells["Số điện thoại"].Value.ToString();
-            txbRSoPhong.Text = dtgvRap.SelectedRows[0].Cells["Số phòng"].Value.ToString();
-            txbRTongSoGhe.Text = dtgvRap.SelectedRows[0].Cells["Tổng số ghế"].Value.ToString();
-        }
-
         void XoaRap()
         {
-            string marap = txbRMaRap.Text;
+            string marap = dtgvRap.SelectedRows[0].Cells["Mã rạp"].Value.ToString();
             if (MessageBox.Show("Bạn có chắc xóa rạp có mã " + marap + " không?", "Xóa rạp", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
             {
                 if (rap.XoaRap(marap))
@@ -347,10 +366,10 @@ namespace QuanLyRapPhim
             btnXoaPhongChieu.Click += (s, e) => { XoaPhongChieu(); };
             txbPCSoGhe.KeyPress += (s, e) => { KeyPressEvent(e, "Bạn phải nhập số ghế là số"); };
 
-            btnPCFirst.Click += (s, e) => { common.First(dtgvPhongChieu); };
-            btnPCPrevious.Click += (s, e) => { common.Previous(dtgvPhongChieu); };
-            btnPCNext.Click += (s, e) => { common.Next(dtgvPhongChieu); };
-            btnPCLast.Click += (s, e) => { common.Last(dtgvPhongChieu); };
+            btnPCFirst.Click += (s, e) => { common.First(dtgvPhongChieu); ChonPhongChieu(); };
+            btnPCPrevious.Click += (s, e) => { common.Previous(dtgvPhongChieu); ChonPhongChieu(); };
+            btnPCNext.Click += (s, e) => { common.Next(dtgvPhongChieu); ChonPhongChieu(); };
+            btnPCLast.Click += (s, e) => { common.Last(dtgvPhongChieu); ChonPhongChieu(); };
         }
 
         void LoadDtgvPhongChieu()
@@ -361,7 +380,7 @@ namespace QuanLyRapPhim
         void ChonPhongChieu()
         {
             string tenrap = dtgvPhongChieu.SelectedRows[0].Cells["Tên rạp"].Value.ToString();
-            DuyetCBRap(tenrap);
+            DuyetComboBox(cbPCTenRap, tenrap);
             txbPCMaPhong.Text = dtgvPhongChieu.SelectedRows[0].Cells["Mã phòng"].Value.ToString();
             txbPCTenPhong.Text = dtgvPhongChieu.SelectedRows[0].Cells["Tên phòng"].Value.ToString();
             txbPCSoGhe.Text = dtgvPhongChieu.SelectedRows[0].Cells["Số ghế"].Value.ToString();
@@ -398,15 +417,14 @@ namespace QuanLyRapPhim
             }
             MessageBox.Show("Lưu phòng chiếu thành công!");
             LoadDtgvPhongChieu();
-            LoadDtgvRap();
         }
 
         void XoaPhongChieu()
         {
             PhongChieuDAO ttPhongChieu = new PhongChieuDAO()
             {
-                MaPhong = txbPCMaPhong.Text,
-                TenRap = cbPCTenRap.SelectedItem.ToString()
+                MaPhong = dtgvPhongChieu.SelectedRows[0].Cells["Mã phòng"].Value.ToString(),
+                TenRap = dtgvPhongChieu.SelectedRows[0].Cells["Tên rạp"].Value.ToString()
             };
             if (MessageBox.Show("Bạn có chắc xóa phòng có mã " + ttPhongChieu.MaPhong + " không?", "Xóa phòng", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
             {
@@ -414,7 +432,6 @@ namespace QuanLyRapPhim
                 {
                     MessageBox.Show("Xóa phòng thành công!");
                     LoadDtgvPhongChieu();
-                    LoadDtgvRap();
                 }
                 else MessageBox.Show("Xóa phòng không thành công!");
             }
@@ -436,10 +453,10 @@ namespace QuanLyRapPhim
             btnXoaGioChieu.Click += (s, e) => { XoaGioChieu(); };
             txbGCDonGia.KeyPress += (s, e) => { KeyPressEvent(e, "Bạn phải nhập đơn giá là một số"); };
 
-            btnGCFirst.Click += (s, e) => { common.First(dtgvGioChieu); };
-            btnGCPrevious.Click += (s, e) => { common.Previous(dtgvGioChieu); };
-            btnGCNext.Click += (s, e) => { common.Next(dtgvGioChieu); };
-            btnGCLast.Click += (s, e) => { common.Last(dtgvGioChieu); };
+            btnGCFirst.Click += (s, e) => { common.First(dtgvGioChieu); ChonGioChieu(); };
+            btnGCPrevious.Click += (s, e) => { common.Previous(dtgvGioChieu); ChonGioChieu(); };
+            btnGCNext.Click += (s, e) => { common.Next(dtgvGioChieu); ChonGioChieu(); };
+            btnGCLast.Click += (s, e) => { common.Last(dtgvGioChieu); ChonGioChieu(); };
         }
 
         void LoadDtgvGioChieu()
@@ -479,7 +496,7 @@ namespace QuanLyRapPhim
 
         void XoaGioChieu()
         {
-            string magiochieu = txbGCMaGioChieu.Text;
+            string magiochieu = dtgvGioChieu.SelectedRows[0].Cells["Mã giờ chiếu"].Value.ToString();
             if (MessageBox.Show("Bạn có chắc xóa giờ chiếu có mã " + magiochieu + " không?", "Xóa giờ chiếu", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
             {
                 if (giochieu.XoaGioChieu(magiochieu))
@@ -504,10 +521,10 @@ namespace QuanLyRapPhim
             btnHuyNuocSanXuat.Click += (s, e) => { ChonNuocSanXuat(); };
             btnXoaNuocSanXuat.Click += (s, e) => { XoaNuocSanXuat(); };
 
-            btnNFirst.Click += (s, e) => { common.First(dtgvNuocSanXuat); };
-            btnNPrevious.Click += (s, e) => { common.Previous(dtgvNuocSanXuat); };
-            btnNNext.Click += (s, e) => { common.Next(dtgvNuocSanXuat); };
-            btnNLast.Click += (s, e) => { common.Last(dtgvNuocSanXuat); };
+            btnNFirst.Click += (s, e) => { common.First(dtgvNuocSanXuat); ChonNuocSanXuat(); };
+            btnNPrevious.Click += (s, e) => { common.Previous(dtgvNuocSanXuat); ChonNuocSanXuat(); };
+            btnNNext.Click += (s, e) => { common.Next(dtgvNuocSanXuat); ChonNuocSanXuat(); };
+            btnNLast.Click += (s, e) => { common.Last(dtgvNuocSanXuat); ChonNuocSanXuat(); };
         }
 
         void LoadDtgvNuocSanXuat()
@@ -547,7 +564,7 @@ namespace QuanLyRapPhim
 
         void XoaNuocSanXuat()
         {
-            string manuocsx = txbNSXMaNuocSX.Text;
+            string manuocsx = dtgvNuocSanXuat.SelectedRows[0].Cells["Mã nước sản xuất"].Value.ToString();
             if (MessageBox.Show("Bạn có chắc xóa nước sản xuất có mã " + manuocsx + " không?", "Xóa nước sản xuất", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
             {
                 if (nuocsanxuat.XoaNuocSanXuat(manuocsx))
@@ -572,10 +589,10 @@ namespace QuanLyRapPhim
             btnHuyHang.Click += (s, e) => { ChonHangSanXuat(); };
             btnXoaHang.Click += (s, e) => { XoaHangSX(); };
 
-            btnHFirst.Click += (s, e) => { common.First(dtgvHangSX); };
-            btnHPrevious.Click += (s, e) => { common.Previous(dtgvHangSX); };
-            btnHNext.Click += (s, e) => { common.Next(dtgvHangSX); };
-            btnHLast.Click += (s, e) => { common.Last(dtgvHangSX); };
+            btnHFirst.Click += (s, e) => { common.First(dtgvHangSX); ChonHangSanXuat(); };
+            btnHPrevious.Click += (s, e) => { common.Previous(dtgvHangSX); ChonHangSanXuat(); };
+            btnHNext.Click += (s, e) => { common.Next(dtgvHangSX); ChonHangSanXuat(); };
+            btnHLast.Click += (s, e) => { common.Last(dtgvHangSX); ChonHangSanXuat(); };
         }
 
         void LoadDtgvHangSanXuat()
@@ -615,7 +632,7 @@ namespace QuanLyRapPhim
 
         void XoaHangSX()
         {
-            string mahangsx = txbHMaHang.Text;
+            string mahangsx = txbHMaHang.Text = dtgvHangSX.SelectedRows[0].Cells["Mã hãng sản xuất"].Value.ToString();
             if (MessageBox.Show("Bạn có chắc xóa hãng sản xuất có mã " + mahangsx + " không?", "Xóa hãng sản xuất", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
             {
                 if (hangsanxuat.XoaHangSanXuat(mahangsx))
@@ -640,10 +657,10 @@ namespace QuanLyRapPhim
             btnLuuTheLoai.Click += (s, e) => { LuuTheLoai(); };
             btnXoaTheLoai.Click += (s, e) => { XoaTheLoai(); };
 
-            btnTLFirst.Click += (s, e) => { common.First(dtgvTheLoai); };
-            btnTLPrevious.Click += (s, e) => { common.Previous(dtgvTheLoai); };
-            btnTLNext.Click += (s, e) => { common.Next(dtgvTheLoai); };
-            btnTLLast.Click += (s, e) => { common.Last(dtgvTheLoai); };
+            btnTLFirst.Click += (s, e) => { common.First(dtgvTheLoai); ChonTheLoai(); };
+            btnTLPrevious.Click += (s, e) => { common.Previous(dtgvTheLoai); ChonTheLoai(); };
+            btnTLNext.Click += (s, e) => { common.Next(dtgvTheLoai); ChonTheLoai(); };
+            btnTLLast.Click += (s, e) => { common.Last(dtgvTheLoai); ChonTheLoai(); };
         }
 
         void LoadDtgvTheLoai()
@@ -683,8 +700,8 @@ namespace QuanLyRapPhim
 
         void XoaTheLoai()
         {
-            string matheloai = txbTLMaTheLoai.Text;
-            if (MessageBox.Show("Bạn có chắc xóa hãng sản xuất có mã " + matheloai + " không?", "Xóa hãng sản xuất", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+            string matheloai = dtgvTheLoai.SelectedRows[0].Cells["Mã thể loại"].Value.ToString();
+            if (MessageBox.Show("Bạn có chắc xóa hãng sản xuất có mã " + matheloai + " không?", "Xóa thể loại", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
             {
                 if (theloai.XoaTheLoai(matheloai))
                 {
@@ -693,6 +710,232 @@ namespace QuanLyRapPhim
                 }
                 else MessageBox.Show("Xóa thể loại không thành công!");
             }
+        }
+        #endregion
+
+        #region QuanLyPhim
+        void QuanLyPhim()
+        {
+            dtgvPhim.DataSource = sourcePhim;
+            LoadDtgvPhim();
+            ChonPhim();
+            dtgvPhim.CellClick += (s, e) => { ChonPhim(); };
+
+            btnTaoPhim.Click += (s, e) => { TaoPhim(); };
+            btnHuyPhim.Click += (s, e) => { ChonPhim(); };
+            btnLuuPhim.Click += (s, e) => { LuuPhim(); };
+            btnXoaPhim.Click += (s, e) => { XoaPhim(); };
+
+            btnPFirst.Click += (s, e) => { common.First(dtgvPhim); ChonPhim(); };
+            btnPPrevious.Click += (s, e) => { common.Previous(dtgvPhim); ChonPhim(); };
+            btnPNext.Click += (s, e) => { common.Next(dtgvPhim); ChonPhim(); };
+            btnPLast.Click += (s, e) => { common.Last(dtgvPhim); ChonPhim(); };
+
+            txbPTongChiPhi.KeyPress += (s, e) => { KeyPressEvent(e, "Bạn phải nhập chi phí là một số"); };
+        }
+
+        void LoadDtgvPhim()
+        {
+            sourcePhim.DataSource = phim.LayDanhSachPhim();
+        }
+
+        void ChonPhim()
+        {
+            txbPMaPhim.Text = dtgvPhim.SelectedRows[0].Cells[0].Value.ToString();
+            txbPTenPhim.Text = dtgvPhim.SelectedRows[0].Cells[1].Value.ToString();
+            DuyetComboBox(cbPNuocSX, dtgvPhim.SelectedRows[0].Cells[2].Value.ToString());
+            DuyetComboBox(cbPHangSX, dtgvPhim.SelectedRows[0].Cells[3].Value.ToString());
+            txbPDaoDien.Text = dtgvPhim.SelectedRows[0].Cells[4].Value.ToString();
+            DuyetComboBox(cbPTheLoai, dtgvPhim.SelectedRows[0].Cells[5].Value.ToString());
+            dtpPNgayBatDau.Value = DateTime.Parse(dtgvPhim.SelectedRows[0].Cells[6].Value.ToString());
+            dtpPNgayKetThuc.Value = DateTime.Parse(dtgvPhim.SelectedRows[0].Cells[7].Value.ToString());
+            txbPNuChinh.Text = dtgvPhim.SelectedRows[0].Cells[8].Value.ToString();
+            txbPNamChinh.Text = dtgvPhim.SelectedRows[0].Cells[9].Value.ToString();
+
+
+            rtxbNoiDungChinh.Text = dtgvPhim.SelectedRows[0].Cells[10].Value.ToString();
+            txbPTongChiPhi.Text = dtgvPhim.SelectedRows[0].Cells[11].Value.ToString();
+            txbPTongThu.Text = dtgvPhim.SelectedRows[0].Cells[12].Value.ToString();
+        }
+
+        void TaoPhim()
+        {
+            txbPMaPhim.Text = "";
+            txbPMaPhim.Focus();
+            txbPTenPhim.Text = "";
+            txbPDaoDien.Text = "";
+            txbPNamChinh.Text = "";
+            txbPNuChinh.Text = "";
+            txbPTongChiPhi.Text = "";
+            txbPTongThu.Text = "0";
+        }
+
+        void LuuPhim()
+        {
+            if (txbPMaPhim.Text == "") return;
+            PhimDAO ttphim = new PhimDAO()
+            {
+                MaPhim = txbPMaPhim.Text,
+                TenPhim = txbPTenPhim.Text,
+                NuocSX = cbPNuocSX.SelectedItem.ToString(),
+                HangSX = cbPHangSX.SelectedItem.ToString(),
+                DaoDien = txbPDaoDien.Text,
+                TheLoai = cbPTheLoai.SelectedItem.ToString(),
+                NgayKhoiChieu = dtpPNgayBatDau.Value,
+                NgayKetThuc = dtpPNgayKetThuc.Value,
+                NamDVChinh = txbPNamChinh.Text,
+                NuDVChinh = txbPNuChinh.Text,
+                NoiDungChinh = rtxbNoiDungChinh.Text,
+                TongChiPhi = long.Parse(txbPTongChiPhi.Text)
+            };
+
+            if (phim.KiemTraPhim(ttphim.MaPhim))
+            {
+                bool kt = phim.SuaPhim(ttphim);
+            }
+            else phim.ThemPhim(ttphim);
+            LoadDtgvPhim();
+            MessageBox.Show("Lưu phim thành công!");
+        }
+
+        void XoaPhim()
+        {
+            string maphim = dtgvPhim.SelectedRows[0].Cells[0].Value.ToString();
+            if (MessageBox.Show("Bạn có chắc xóa phim có mã " + maphim + " không?", "Xóa phim", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+            {
+                if (phim.XoaPhim(maphim))
+                {
+                    MessageBox.Show("Xóa phim thành công!");
+                    LoadDtgvPhim();
+                }
+                else MessageBox.Show("Xóa phim không thành công!");
+            }
+        }
+        #endregion
+
+        #region QuanLyBuoiChieu
+        void QuanLyBuoiChieu()
+        {
+            dtgvLichChieu.DataSource = sourceBuoiChieu;
+            LoadDtgvBuoiChieu();
+            ChonBuoiChieu();
+            dtgvLichChieu.CellClick += (s, e) => { ChonBuoiChieu(); };
+
+            btnThemLichChieu.Click += (s, e) => { TaoBuoiChieu(); };
+            btnHuyLichChieu.Click += (s, e) => { ChonBuoiChieu(); };
+            btnLuuLichChieu.Click += (s, e) => { LuuBuoiChieu(); };
+            btnXoaLichChieu.Click += (s, e) => { XoaBuoiChieu(); };
+
+            btnLCFirst.Click += (s, e) => { common.First(dtgvLichChieu); ChonBuoiChieu(); };
+            btnLCPrevious.Click += (s, e) => { common.Previous(dtgvLichChieu); ChonBuoiChieu(); };
+            btnLCNext.Click += (s, e) => { common.Next(dtgvLichChieu); ChonBuoiChieu(); };
+            btnLCLast.Click += (s, e) => { common.Last(dtgvLichChieu); ChonBuoiChieu(); };
+        }
+
+        void LoadDtgvBuoiChieu()
+        {
+            sourceBuoiChieu.DataSource = buoichieu.LayDanhSachBuoiChieu();
+        }
+
+        void ChonBuoiChieu()
+        {
+            txbLCMaShow.Text = dtgvLichChieu.SelectedRows[0].Cells[0].Value.ToString();
+            DuyetComboBox(cbLCPhim, dtgvLichChieu.SelectedRows[0].Cells[1].Value.ToString());
+            DuyetComboBox(cbLCRap, dtgvLichChieu.SelectedRows[0].Cells[2].Value.ToString());
+            DuyetComboBox(cbLCPhongChieu, dtgvLichChieu.SelectedRows[0].Cells[3].Value.ToString());
+            dtpLCNgayChieu.Value = DateTime.Parse(dtgvLichChieu.SelectedRows[0].Cells[4].Value.ToString());
+            DuyetComboBox(cbLCGIoChieu, dtgvLichChieu.SelectedRows[0].Cells[5].Value.ToString());
+            txbLCSoVeDaBan.Text = dtgvLichChieu.SelectedRows[0].Cells[6].Value.ToString();
+            txbLCTongTien.Text = dtgvLichChieu.SelectedRows[0].Cells[7].Value.ToString();
+        }
+
+        void TaoBuoiChieu()
+        {
+            txbLCMaShow.Text = "";
+            txbLCMaShow.Focus();
+            txbLCSoVeDaBan.Text = "0";
+            txbLCTongTien.Text = "0";
+        }
+
+        void LuuBuoiChieu()
+        {
+            if (txbLCMaShow.Text == "") return;
+            BuoiChieuDAO ttshow = new BuoiChieuDAO()
+            {
+                MaShow = txbLCMaShow.Text,
+                TenPhim = cbLCPhim.SelectedItem.ToString(),
+                TenPhong = cbLCPhongChieu.SelectedItem.ToString(),
+                TenRap = cbLCRap.SelectedItem.ToString(),
+                GioChieu = cbLCGIoChieu.SelectedItem.ToString(),
+                NgayChieu = dtpLCNgayChieu.Value
+            };
+
+            if (buoichieu.KiemTraBuoiChieu(ttshow.MaShow))
+            {
+                buoichieu.SuaBuoiChieu(ttshow);
+            }
+            else buoichieu.ThemBuoiChieu(ttshow);
+            MessageBox.Show("Lưu thông tin buổi chiếu thành công!");
+            LoadDtgvBuoiChieu();
+        }
+
+        void XoaBuoiChieu()
+        {
+            string mashow = dtgvLichChieu.SelectedRows[0].Cells[0].Value.ToString();
+            if (MessageBox.Show("Bạn có chắc xóa buổi chiếu có mã " + mashow + " không?", "Xóa buổi chiếu", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+            {
+                if (buoichieu.XoaBuoiChieu(mashow))
+                {
+                    MessageBox.Show("Xóa buổi chiếu thành công!");
+                    LoadDtgvBuoiChieu();
+                }
+                else MessageBox.Show("Xóa buổi chiếu không thành công!");
+            }
+        }
+        #endregion
+
+        #region QuanLyBanVe
+        void QuanLyBanVe()
+        {
+            dtgvVe.DataSource = sourceVe;
+            LoadDtgvVe();
+            ChonVe();
+
+            dtgvVe.CellClick += (s, e) => { ChonVe(); };
+            btnTaoVe.Click += (s, e) => { ThemVe(); };
+            btnHuyVe.Click += (s, e) => { ChonVe(); };
+            btnXoaVe.Click += (s, e) => { XoaVe(); };
+            btnLuuVe.Click += (s, e) => { LuuVe(); };
+
+            btnVFirst.Click += (s, e) => { common.First(dtgvVe); ChonVe(); };
+            btnVPrevious.Click += (s, e) => { common.Previous(dtgvVe); ChonVe(); };
+            btnVNext.Click += (s, e) => { common.Next(dtgvVe); ChonVe(); };
+            btnVLast.Click += (s, e) => { common.Last(dtgvVe); ChonVe(); };
+        }
+
+        void LoadDtgvVe()
+        {
+            //sourceVe.DataSource = 
+        }
+
+        void ChonVe()
+        {
+
+        }
+
+        void ThemVe()
+        {
+
+        }
+
+        void LuuVe()
+        {
+
+        }
+
+        void XoaVe()
+        {
+
         }
         #endregion
     }

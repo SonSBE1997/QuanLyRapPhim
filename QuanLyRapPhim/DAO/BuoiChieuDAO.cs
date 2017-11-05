@@ -10,29 +10,18 @@ namespace QuanLyRapPhim.DAO
     {
         public string MaShow { get; set; }
 
-        public string MaPhim { get; set; }
+        public string TenPhim { get; set; }
 
-        public string MaRap { get; set; }
+        public string TenRap { get; set; }
 
-        public string MaPhong { get; set; }
+        public string TenPhong { get; set; }
 
         public DateTime NgayChieu { get; set; }
 
-        public string MaGioChieu { get; set; }
+        public string GioChieu { get; set; }
 
         public int SoVeDaBan { get; set; }
 
         public long TongTien { get; set; }
-
-        public BuoiChieuDAO(string mashow, string maphim, string marap, string maphong, DateTime ngaychieu, string magiochieu, int sove)
-        {
-            this.MaShow = mashow;
-            this.MaPhim = maphim;
-            this.MaRap = marap;
-            this.MaPhong = maphong;
-            this.NgayChieu = ngaychieu;
-            this.MaGioChieu = magiochieu;
-            this.SoVeDaBan = sove;
-        }
     }
 }

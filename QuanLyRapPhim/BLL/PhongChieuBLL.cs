@@ -55,5 +55,26 @@ namespace QuanLyRapPhim.BLL
             int soghe = (int)DataProvider.Instance.ExcuteQuery(query).Rows[0]["soghe"];
             return soghe;
         }
+
+        public List<string> LayDanhSachTenPhongChieuTheoTenRap(string tenrap)
+        {
+            List<string> ls = new List<string>();
+            DataTable table = DataProvider.Instance.ExcuteQuery("SELECT tenphong FROM dbo.PhongChieu JOIN dbo.Rap ON Rap.marap = PhongChieu.marap WHERE tenrap = N'" + tenrap + "'");
+            foreach (DataRow item in table.Rows)
+            {
+                ls.Add(item["tenphong"].ToString());
+            }
+            return ls;
+        }
+
+        public string LayMaPhongChieuTheoTen(string tenphong)
+        {
+            DataTable table = DataProvider.Instance.ExcuteQuery("SELECT maphong FROM dbo.PhongChieu WHERE tenphong = N'" + tenphong + "'");
+            foreach (DataRow item in table.Rows)
+            {
+                return item["maphong"].ToString();
+            }
+            return "";
+        }
     }
 }

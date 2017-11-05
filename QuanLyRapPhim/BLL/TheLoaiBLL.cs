@@ -36,5 +36,26 @@ namespace QuanLyRapPhim.BLL
         {
             return DataProvider.Instance.ExcuteNonQuery(string.Format("INSERT INTO dbo.TheLoai ( matheloai, tentheloai )VALUES( '{0}', N'{1}')", tl.MaTheLoai, tl.TenTheLoai)) > 0;
         }
+
+        public TheLoaiDAO LayTheLoaiTheoTen(string tentheloai)
+        {
+            DataTable table = DataProvider.Instance.ExcuteQuery("SELECT * FROM dbo.TheLoai WHERE tentheloai = N'" + tentheloai + "'");
+            foreach (DataRow item in table.Rows)
+            {
+                return new TheLoaiDAO(item);
+            }
+            return null;
+        }
+
+        public List<string> LayDanhSachTenTheLoai()
+        {
+            List<string> ls = new List<string>();
+            DataTable table = DataProvider.Instance.ExcuteQuery("SELECT * FROM dbo.TheLoai");
+            foreach (DataRow item in table.Rows)
+            {
+                ls.Add(item["tentheloai"].ToString());
+            }
+            return ls;
+        }
     }
 }

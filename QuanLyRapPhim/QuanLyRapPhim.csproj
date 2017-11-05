@@ -52,6 +52,7 @@
     <Compile Include="BLL\GioChieuBLL.cs" />
     <Compile Include="BLL\HangSanXuatBLL.cs" />
     <Compile Include="BLL\NuocSanXuatBLL.cs" />
+    <Compile Include="BLL\PhimBLL.cs" />
     <Compile Include="BLL\PhongChieuBLL.cs" />
     <Compile Include="BLL\RapBLL.cs" />
     <Compile Include="BLL\TheLoaiBLL.cs" />

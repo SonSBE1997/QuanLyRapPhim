@@ -36,5 +36,26 @@ namespace QuanLyRapPhim.BLL
         {
             return DataProvider.Instance.ExcuteNonQuery(string.Format("INSERT INTO dbo.NuocSanXuat ( manuocsx, tennuocsx )VALUES( '{0}', N'{1}')", nuocsx.MaNuoc, nuocsx.TenNuoc)) > 0;
         }
+
+        public NuocSanXuatDAO LayNuocSXTheoTen(string tennuoc)
+        {
+            DataTable table = DataProvider.Instance.ExcuteQuery("SELECT * FROM dbo.NuocSanXuat WHERE tennuocsx = N'" + tennuoc + "'");
+            foreach (DataRow item in table.Rows)
+            {
+                return new NuocSanXuatDAO(item);
+            }
+            return null;
+        }
+
+        public List<string> LayDanhSachTenNuocSX()
+        {
+            List<string> ls = new List<string>();
+            DataTable table = DataProvider.Instance.ExcuteQuery("SELECT * FROM dbo.NuocSanXuat");
+            foreach (DataRow item in table.Rows)
+            {
+                ls.Add(item["tennuocsx"].ToString());
+            }
+            return ls;
+        }
     }
 }

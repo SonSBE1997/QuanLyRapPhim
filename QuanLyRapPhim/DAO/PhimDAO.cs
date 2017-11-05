@@ -12,13 +12,13 @@ namespace QuanLyRapPhim.DAO
 
         public string TenPhim { get; set; }
 
-        public string MaNuoc { get; set; }
+        public string NuocSX { get; set; }
 
-        public string MaHang { get; set; }
+        public string HangSX { get; set; }
 
         public string DaoDien { get; set; }
 
-        public string MaTheLoai { get; set; }
+        public string TheLoai { get; set; }
 
         public DateTime NgayKhoiChieu { get; set; }
 
@@ -38,16 +38,21 @@ namespace QuanLyRapPhim.DAO
         {
             this.MaPhim = maphim;
             this.TenPhim = tenphim;
-            this.MaNuoc = manuoc;
-            this.MaHang = mahang;
+            this.NuocSX = manuoc;
+            this.HangSX = mahang;
             this.DaoDien = daodien;
-            this.MaTheLoai = theloai;
+            this.TheLoai = theloai;
             this.NgayKhoiChieu = ngaykhoichieu;
             this.NgayKetThuc = ngayketthuc;
             this.NamDVChinh = namchinh;
             this.NuDVChinh = nuchinh;
             this.NoiDungChinh = ndchinh;
             this.TongChiPhi = tongchiphi;
+        }
+
+        public PhimDAO()
+        {
+
         }
     }
 }

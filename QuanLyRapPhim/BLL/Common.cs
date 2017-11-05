@@ -31,31 +31,31 @@ namespace QuanLyRapPhim.BLL
 
         public void First(DataGridView view)
         {
-            view.Rows[0].Selected = true;
+            view.CurrentCell = view[0, 0];
         }
 
         public void Last(DataGridView view)
         {
-            view.Rows[view.Rows.Count - 1].Selected = true;
+            view.CurrentCell = view[0, view.Rows.Count - 1];
         }
 
         public DataTable TimKiem(DataTable table, string key)
         {
-            if (table.Rows.Count == 0) return null;
+            int row = table.Rows.Count;
+            if (row == 0) return null;
             int col = table.Columns.Count;
-            foreach (DataRow row in table.Rows)
+            for (int i = 0; i < row; i++)
             {
                 int d = 0;
-                for (int i = 0; i < col; i++)
+                for (int j = 0; j < col; j++)
                 {
-                    if (row[i].ToString().Contains(key))
+                    if (table.Rows[i][j].ToString().Contains(key))
                     {
                         d++;
                     }
                 }
-                if (d == 0) table.Rows.Remove(row);
+                if (d == 0) table.Rows.RemoveAt(i);
             }
-
             return table;
         }
     }

@@ -36,5 +36,26 @@ namespace QuanLyRapPhim.BLL
             return DataProvider.Instance.ExcuteNonQuery(string.Format("INSERT INTO dbo.HangSX ( mahangsx, tenhangsx )VALUES( '{0}', N'{1}')", hang.MaHang, hang.TenHang)) > 0;
         }
 
+        public HangSXDAO LayHangSXTheoTen(string tenhang)
+        {
+            DataTable table = DataProvider.Instance.ExcuteQuery("SELECT * FROM dbo.HangSX WHERE tenhangsx = N'" + tenhang + "'");
+            foreach (DataRow row in table.Rows)
+            {
+                return new HangSXDAO(row);
+            }
+            return null;
+        }
+
+        public List<string> LayDanhSachTenHangSX()
+        {
+            List<string> list = new List<string>();
+            DataTable table = DataProvider.Instance.ExcuteQuery("SELECT * FROM dbo.HangSX");
+            foreach (DataRow row in table.Rows)
+            {
+                list.Add(row["tenhangsx"].ToString());
+            }
+            return list;
+        }
+
     }
 }
