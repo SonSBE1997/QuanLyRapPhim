@@ -1,6 +1,6 @@
 ﻿namespace QuanLyRapPhim
 {
-    partial class Chart3
+    partial class DoanhThuQuaCacNam
     {
         /// <summary>
         /// Required designer variable.
@@ -41,24 +41,26 @@
             this.chart1.ChartAreas.Add(chartArea1);
             legend1.Name = "Legend1";
             this.chart1.Legends.Add(legend1);
-            this.chart1.Location = new System.Drawing.Point(3, 1);
+            this.chart1.Location = new System.Drawing.Point(4, 3);
             this.chart1.Name = "chart1";
             series1.ChartArea = "ChartArea1";
             series1.Legend = "Legend1";
-            series1.Name = "Series1";
+            series1.Name = "Năm";
             this.chart1.Series.Add(series1);
-            this.chart1.Size = new System.Drawing.Size(583, 465);
+            this.chart1.Size = new System.Drawing.Size(671, 651);
             this.chart1.TabIndex = 0;
             this.chart1.Text = "chart1";
             // 
-            // Chart3
+            // DoanhThuQuaCacNam
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(585, 467);
+            this.ClientSize = new System.Drawing.Size(680, 656);
             this.Controls.Add(this.chart1);
-            this.Name = "Chart3";
-            this.Text = "Chart3";
+            this.Name = "DoanhThuQuaCacNam";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            this.Text = "Doanh thu qua các năm";
+            this.Load += new System.EventHandler(this.DoanhThuQuaCacNam_Load);
             ((System.ComponentModel.ISupportInitialize)(this.chart1)).EndInit();
             this.ResumeLayout(false);
 

@@ -57,24 +57,6 @@
     <Compile Include="BLL\RapBLL.cs" />
     <Compile Include="BLL\TheLoaiBLL.cs" />
     <Compile Include="BLL\VeBLL.cs" />
-    <Compile Include="Chart1.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Chart1.Designer.cs">
-      <DependentUpon>Chart1.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Chart2.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Chart2.Designer.cs">
-      <DependentUpon>Chart2.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Chart3.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Chart3.Designer.cs">
-      <DependentUpon>Chart3.cs</DependentUpon>
-    </Compile>
     <Compile Include="DAO\BuoiChieuDAO.cs" />
     <Compile Include="DAO\GioChieuDAO.cs" />
     <Compile Include="DAO\HangSXDAO.cs" />
@@ -82,8 +64,45 @@
     <Compile Include="DAO\PhimDAO.cs" />
     <Compile Include="DAO\PhongChieuDAO.cs" />
     <Compile Include="DAO\RapDAO.cs" />
+    <Compile Include="BLL\ReportBLL.cs" />
     <Compile Include="DAO\TheLoaiDAO.cs" />
     <Compile Include="DAO\VeDAO.cs" />
+    <Compile Include="Form\DoanhThuQuaCacNam.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form\DoanhThuQuaCacNam.Designer.cs">
+      <DependentUpon>DoanhThuQuaCacNam.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Form\DoanhThuTheoGio.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form\DoanhThuTheoGio.Designer.cs">
+      <DependentUpon>DoanhThuTheoGio.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Form\DoanhThuTheoHangSX.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form\DoanhThuTheoHangSX.Designer.cs">
+      <DependentUpon>DoanhThuTheoHangSX.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Form\DoanhThuTheoLoaiPhim.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form\DoanhThuTheoLoaiPhim.Designer.cs">
+      <DependentUpon>DoanhThuTheoLoaiPhim.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Form\DoanhThuTheoNuoc.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form\DoanhThuTheoNuoc.Designer.cs">
+      <DependentUpon>DoanhThuTheoNuoc.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Form\DoanhThuTheoRap.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form\DoanhThuTheoRap.Designer.cs">
+      <DependentUpon>DoanhThuTheoRap.cs</DependentUpon>
+    </Compile>
     <Compile Include="Form\Main.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -92,32 +111,23 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Report1.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Report1.Designer.cs">
-      <DependentUpon>Report1.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Report2.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Report2.Designer.cs">
-      <DependentUpon>Report2.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Report3.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Report3.Designer.cs">
-      <DependentUpon>Report3.cs</DependentUpon>
-    </Compile>
-    <EmbeddedResource Include="Chart1.resx">
-      <DependentUpon>Chart1.cs</DependentUpon>
+    <EmbeddedResource Include="Form\DoanhThuQuaCacNam.resx">
+      <DependentUpon>DoanhThuQuaCacNam.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Chart2.resx">
-      <DependentUpon>Chart2.cs</DependentUpon>
+    <EmbeddedResource Include="Form\DoanhThuTheoGio.resx">
+      <DependentUpon>DoanhThuTheoGio.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Chart3.resx">
-      <DependentUpon>Chart3.cs</DependentUpon>
+    <EmbeddedResource Include="Form\DoanhThuTheoHangSX.resx">
+      <DependentUpon>DoanhThuTheoHangSX.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form\DoanhThuTheoLoaiPhim.resx">
+      <DependentUpon>DoanhThuTheoLoaiPhim.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form\DoanhThuTheoNuoc.resx">
+      <DependentUpon>DoanhThuTheoNuoc.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form\DoanhThuTheoRap.resx">
+      <DependentUpon>DoanhThuTheoRap.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Form\Main.resx">
       <DependentUpon>Main.cs</DependentUpon>

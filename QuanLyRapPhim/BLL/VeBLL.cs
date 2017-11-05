@@ -11,6 +11,13 @@ namespace QuanLyRapPhim.BLL
     public class VeBLL
     {
         BuoiChieuBLL buoichieu = new BuoiChieuBLL();
+
+        public DataTable LayDanhSachThongTinVe()
+        {
+            string query = "SELECT r.tenrap [Tên rạp],p.tenphim [Tên phim],pc.tenphong [Phòng chiếu],bc.ngaychieu [Ngày chiếu],bc.magiochieu [Giờ chiếu],gc.dongia [Giá vé],v.mave [Mã vé], v.soghe [Số ghế], v.hangghe [Hàng ghế],v.trangthai [Tình trạng] FROM  dbo.Ve v JOIN dbo.BuoiChieu bc ON bc.mashow = v.mashow JOIN dbo.Phim p ON p.maphim = bc.maphim JOIN dbo.Rap r ON r.marap = bc.marap JOIN dbo.PhongChieu pc ON pc.maphong = bc.maphong JOIN dbo.GioChieu gc ON gc.magiochieu = bc.magiochieu";
+            return DataProvider.Instance.ExcuteQuery(query);
+        }
+
         public DataTable LayDanhSachThongTinVe(VeDAO ve)
         {
             string ngaychieu = ve.NgayChieu.ToString("MM-dd-yyyy");
